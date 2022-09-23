@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!-- saved from url=(0086)https://muthu.co/reducing-the-number-of-colors-of-an-image-using-median-cut-algorithm/ -->
+<html lang="en-US"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link media="all" href="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/autoptimize_6a61ba4c39f64fc7c1ae6f7def5e149b.css" rel="stylesheet">
+<title>Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan</title>
+<meta name="robots" content="max-image-preview:large">
+<link rel="alternate" type="application/rss+xml" title="Muthukrishnan » Feed" href="https://muthu.co/feed/">
+<link rel="alternate" type="application/rss+xml" title="Muthukrishnan » Comments Feed" href="https://muthu.co/comments/feed/"> <script async="" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/analytics.js"></script><script src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/jquery.min.js" id="jquery-core-js"></script> <link rel="https://api.w.org/" href="https://muthu.co/wp-json/">
+<link rel="alternate" type="application/json" href="https://muthu.co/wp-json/wp/v2/posts/1063">
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="https://muthu.co/xmlrpc.php?rsd">
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://muthu.co/wp-includes/wlwmanifest.xml">
+<meta name="generator" content="WordPress 5.7.2">
+<link rel="canonical" href="https://muthu.co/reducing-the-number-of-colors-of-an-image-using-median-cut-algorithm/">
+<link rel="shortlink" href="https://muthu.co/?p=1063">
+<link rel="alternate" type="application/json+oembed" href="https://muthu.co/wp-json/oembed/1.0/embed?url=%2Freducing-the-number-of-colors-of-an-image-using-median-cut-algorithm%2F">
+<link rel="alternate" type="text/xml+oembed" href="https://muthu.co/wp-json/oembed/1.0/embed?url=%2Freducing-the-number-of-colors-of-an-image-using-median-cut-algorithm%2F&amp;format=xml">  <script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-72206866-1', 'auto');
+			ga('send', 'pageview');</script> </head>
+<body class="post-template-default single single-post postid-1063 single-format-standard wp-embed-responsive color-scheme-light link-hover-orange vsc-initialized"> <a class="skip-link screen-reader-text" href="https://muthu.co/reducing-the-number-of-colors-of-an-image-using-median-cut-algorithm/#content">Skip to content</a><div id="page" class="site page-width-600">
+<header id="header" class="site-header site-header-align-left" role="banner"><p class="site-title site-title-weight-bolder"> <a> Muthukrishnan </a></p>
+<p class="site-description text-secondary site-desc-style-normal site-desc-weight-normal"> AI, Computer Vision and Mathematics</p>
+<div class="site-social site-social-round"><ul class="social-links list-inline">
+<li> <a href="https://twitter.com/krimuthu" target="_blank" aria-label="Link to Twitter"><div class="social-icon-container"> <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Twitter icon" width="16" height="16" class="simple-icons icon-twitter" viewBox="0 0 24 24"><path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"></path></svg>
+</div> </a>
+</li>
+<li> <a href="https://www.linkedin.com/in/krimuthu/" target="_blank" aria-label="Link to Linkedin"><div class="social-icon-container"> <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Linkedin icon" width="16" height="16" class="simple-icons icon-linkedin" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"></path></svg>
+</div> </a>
+</li>
+<li> <a href="https://github.com/muthuspark" target="_blank" aria-label="Link to Github"><div class="social-icon-container"> <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Github icon" width="16" height="16" class="simple-icons icon-github" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+</div> </a>
+</li>
+<li> <a href="mailto:muthukrishnan.t@hotmail.com" target="_blank" aria-label="Link to Email"><div class="social-icon-container"> <svg xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Email icon" width="16" height="16" class="simple-icons icon-email" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+</div> </a>
+</li>
+</ul></div>
+<nav id="menu-primary-container" class="button" role="navigation" aria-label="Primary Menu"> <button id="menu-mobile-button" onclick="marianneAriaExpand(this)">Menu</button><ul id="menu-primary" class="navigation-menu">
+<li id="menu-item-1553" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1553"><a href="http://muthu.co/" role="menu-item" tabindex="0">Home</a></li>
+<li id="menu-item-1149" class="menu-item menu-item-type-taxonomy menu-item-object-category current-post-ancestor current-menu-parent current-post-parent menu-item-1149"><a href="https://muthu.co/category/computer-vision/" role="menu-item" tabindex="0">Computer Vision</a></li>
+<li id="menu-item-1151" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1151"><a href="https://muthu.co/category/data-science/" role="menu-item" tabindex="0">Data science</a></li>
+<li id="menu-item-1150" class="menu-item menu-item-type-taxonomy menu-item-object-category menu-item-1150"><a href="https://muthu.co/category/mathematics/" role="menu-item" tabindex="0">Mathematics</a></li>
+<li id="menu-item-1365" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-1365"><a href="https://muthu.co/technology/" role="menu-item" tabindex="0">Technology</a></li>
+<li id="menu-item-1152" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1152"><a href="https://muthu.co/about-me/" role="menu-item" tabindex="0">About me</a></li>
+</ul></nav></header><div id="content" class="site-content"><main id="primary" class="site-primary" role="main"><article id="post-1063" class="entry-single post-1063 post type-post status-publish format-standard has-post-thumbnail hentry category-computer-vision tag-computer-vision"><header class="entry-header"> <time class="entry-meta entry-date post-date text-secondary" datetime="2019-10-06T16:44:58+00:00"> October 6, 2019 </time><ul class="list-inline entry-meta entry-categories text-secondary"><li> <a href="https://muthu.co/category/computer-vision/">Computer Vision</a>
+</li></ul>
+<h1 class="entry-title post-title">Reducing the number of colors of an image using Median Cut algorithm</h1>
+<figure class="entry-thumbnail post-thumbnail"> <noscript><img width="400" height="600" src="/wp-content/uploads/2019/10/girl.jpg" class="attachment-marianne-thumbnails size-marianne-thumbnails wp-post-image" alt="Original Image" srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w" sizes="(max-width: 400px) 100vw, 400px"></noscript>
+<img width="400" height="600" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl.jpg" data-src="/wp-content/uploads/2019/10/girl.jpg" class="attachment-marianne-thumbnails size-marianne-thumbnails wp-post-image lazyloaded" alt="Original Image" data-srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w" data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px" srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w"></figure></header><section class="entry-content post-content text-align-left print-url-show"><p><span class="hardreadability"><span data-offset-key="7f92g-0-0">In my previous post, I talked about the </span></span><a href="https://muthu.co/reduce-the-number-of-colors-of-an-image-using-uniform-quantization/"><span data-offset-key="7f92g-1-0">Uniform Quantization algorithm, </span></a><span class="hardreadability"><span data-offset-key="7f92g-2-0">which was a simple way of reducing the colors in the image</span></span><span data-offset-key="7f92g-3-0">. </span><span class="hardreadability"><span data-offset-key="7f92g-4-0">Though it’s easy to </span></span><span class="complexword"><span data-offset-key="7f92g-5-0">implement</span></span><span class="hardreadability"><span data-offset-key="7f92g-6-0">, it doesn’t always yield good results when there are many colors belonging to the same region</span></span><span data-offset-key="7f92g-7-0">. Also, a lot of color regions will not have any colors mapped to them resulting in color map entries get wasted.</span></p>
+<p><span data-offset-key="4kj4u-0-0">In this post, I will talk about the Median Cut algorithm for color quantization. The main idea is to <span data-offset-key="4kj4u-1-0">recursively</span> sort the pixels by color space and divide it along the median. The implementation can be <a href="https://github.com/muthuspark/median-cut-color-quantization">found here.</a></span></p>
+<h2>Algorithm</h2>
+<ol>
+<li>Move all pixels into a single large bucket.</li>
+<li>Find the color channel (red, green, or blue) in the image with the greatest range.</li>
+<li>Sort the pixels by that channel values.</li>
+<li>Find the median and cut the region by that pixel.</li>
+<li>Repeat the process for both buckets until you have the desired number of colors.</li>
+</ol>
+<p>For example, In your image, if the blue channel has the greatest range, then a pixel with an RGB value of (32, 8, 16) is less than a pixel with an RGB value of (1, 2, 24), because 16 &lt; 24. Sort the pixels along blue channel. After the bucket has been sorted, move the upper half of the pixels into a new bucket.&nbsp;Repeat the process on both buckets, giving you 4 buckets, then repeat on all 4 buckets, giving you 8 buckets, then repeat on all 8, giving you 16 buckets. Average the pixels in each bucket and you have a palette of 16 colors.</p>
+<p>Since the number of buckets doubles with each iteration, this algorithm can only generate a palette with a number of colors that is a power of two.</p>
+<h2>Implementation</h2>
+<p><span data-offset-key="549qo-0-0">The code below implements the Median Cut Color quantization algorithm. You can reduce the colors only in the multiple of 2 because in each recursion you are dividing the block into two. The complete notebook is </span><a href="https://github.com/muthuspark/ml_research/blob/master/median%20cut%20color%20quantization.ipynb"><span data-offset-key="549qo-1-0">here</span></a><span data-offset-key="549qo-2-0">.</span></p>
+<pre class="wp-block-code EnlighterJSRAW has-small-font-size"><code>import matplotlib.pyplot as plt
+import numpy as np
+from skimage.io import imread
+        
+sample_img = imread('resource/girl.jpg')
+
+def median_cut_quantize(img, img_arr):
+    # when it reaches the end, color quantize
+    print("to quantize: ", len(img_arr))
+    r_average = np.mean(img_arr[:,0])
+    g_average = np.mean(img_arr[:,1])
+    b_average = np.mean(img_arr[:,2])
+    
+    for data in img_arr:
+        sample_img[data[3]][data[4]] = [r_average, g_average, b_average]
+    
+def split_into_buckets(img, img_arr, depth):
+    
+    if len(img_arr) == 0:
+        return 
+        
+    if depth == 0:
+        median_cut_quantize(img, img_arr)
+        return
+    
+    r_range = np.max(img_arr[:,0]) - np.min(img_arr[:,0])
+    g_range = np.max(img_arr[:,1]) - np.min(img_arr[:,1])
+    b_range = np.max(img_arr[:,2]) - np.min(img_arr[:,2])
+    
+    space_with_highest_range = 0
+
+    if g_range &gt;= r_range and g_range &gt;= b_range:
+        space_with_highest_range = 1
+    elif b_range &gt;= r_range and b_range &gt;= g_range:
+        space_with_highest_range = 2
+    elif r_range &gt;= b_range and r_range &gt;= g_range:
+        space_with_highest_range = 0
+
+    print("space_with_highest_range:",space_with_highest_range)
+
+    # sort the image pixels by color space with highest range 
+    # and find the median and divide the array.
+    img_arr = img_arr[img_arr[:,space_with_highest_range].argsort()]
+    median_index = int((len(img_arr)+1)/2)
+    print("median_index:", median_index)
+
+    
+    #split the array into two buckets along the median
+    split_into_buckets(img, img_arr[0:median_index], depth-1)
+    split_into_buckets(img, img_arr[median_index:], depth-1)
+    
+flattened_img_array = []
+for rindex, rows in enumerate(sample_img):
+    for cindex, color in enumerate(rows):
+        flattened_img_array.append([color[0],color[1],color[2],rindex, cindex]) 
+        
+flattened_img_array = np.array(flattened_img_array)
+
+# the 3rd parameter represents how many colors are needed in the power of 2. If the parameter 
+# passed is 4 its means 2^4 = 16 colors
+split_into_buckets(sample_img, flattened_img_array, 4)</code></pre>
+<p>The output of the above program after execution:</p>
+<div class="wp-block-image"><figure class="aligncenter"><a href="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl.jpg"><noscript><img width="400" height="600" src="https://muthu.co/wp-content/uploads/2019/10/girl.jpg" alt="" class="wp-image-1071" srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w" sizes="(max-width: 400px) 100vw, 400px"></noscript>
+<img width="400" height="600" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl.jpg" data-src="https://muthu.co/wp-content/uploads/2019/10/girl.jpg" alt="" class="wp-image-1071 ls-is-cached lazyloaded" data-srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w" data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px" srcset="/wp-content/uploads/2019/10/girl.jpg 400w, /wp-content/uploads/2019/10/girl-200x300.jpg 200w"></a><figcaption><strong>Original Image</strong></figcaption></figure></div>
+<div class="wp-block-image"><figure class="aligncenter"><a href="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_8_colors.jpg"><noscript><img width="400" height="600" src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_8_colors.jpg" alt="reduced to 8 colors" class="wp-image-1077" srcset="/wp-content/uploads/2019/10/girl_reduced_8_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_8_colors-200x300.jpg 200w" sizes="(max-width: 400px) 100vw, 400px"></noscript>
+<img width="400" height="600" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_8_colors.jpg" data-src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_8_colors.jpg" alt="reduced to 8 colors" class="wp-image-1077 lazyloaded" data-srcset="/wp-content/uploads/2019/10/girl_reduced_8_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_8_colors-200x300.jpg 200w" data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px" srcset="/wp-content/uploads/2019/10/girl_reduced_8_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_8_colors-200x300.jpg 200w"></a><figcaption><strong>8 colors</strong></figcaption></figure></div>
+<div class="wp-block-image"><figure class="aligncenter"><a href="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_16_colors.jpg"><noscript><img width="400" height="600" src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_16_colors.jpg" alt="" class="wp-image-1078" srcset="/wp-content/uploads/2019/10/girl_reduced_16_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_16_colors-200x300.jpg 200w" sizes="(max-width: 400px) 100vw, 400px"></noscript>
+<img width="400" height="600" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_16_colors.jpg" data-src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_16_colors.jpg" alt="" class="wp-image-1078 lazyloaded" data-srcset="/wp-content/uploads/2019/10/girl_reduced_16_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_16_colors-200x300.jpg 200w" data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px" srcset="/wp-content/uploads/2019/10/girl_reduced_16_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_16_colors-200x300.jpg 200w"></a><figcaption><strong>32 Colors</strong></figcaption></figure></div>
+<div class="wp-block-image"><figure class="aligncenter"><a href="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_128_colors.jpg"><noscript><img width="400" height="600" src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_128_colors.jpg" alt="" class="wp-image-1079" srcset="/wp-content/uploads/2019/10/girl_reduced_128_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_128_colors-200x300.jpg 200w" sizes="(max-width: 400px) 100vw, 400px"></noscript>
+<img width="400" height="600" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/girl_reduced_128_colors.jpg" data-src="https://muthu.co/wp-content/uploads/2019/10/girl_reduced_128_colors.jpg" alt="" class="wp-image-1079 lazyloaded" data-srcset="/wp-content/uploads/2019/10/girl_reduced_128_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_128_colors-200x300.jpg 200w" data-sizes="(max-width: 400px) 100vw, 400px" sizes="(max-width: 400px) 100vw, 400px" srcset="/wp-content/uploads/2019/10/girl_reduced_128_colors.jpg 400w, /wp-content/uploads/2019/10/girl_reduced_128_colors-200x300.jpg 200w"></a><figcaption><strong>128 colors</strong></figcaption></figure></div>
+<h2>References:</h2>
+<ul class="has-small-font-size">
+<li><a href="https://tpgit.github.io/UnOfficialLeptDocs/leptonica/color-quantization.html#modified-median-cut-implementation">https://tpgit.github.io/UnOfficialLeptDocs/leptonica/color-quantization.html#modified-median-cut-implementation</a></li>
+<li><a href="https://www.academia.edu/14281934/A_simple_method_for_color_quantization_octree_quantization">https://www.academia.edu/14281934/A_simple_method_for_color_quantization_octree_quantization</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Median_cut">https://en.wikipedia.org/wiki/Median_cut</a></li>
+</ul></section><footer class="entry-footer post-footer"><div class="entry-tags post-tags text-secondary"> Tags: <a href="https://muthu.co/tag/computer-vision/" rel="tag">Computer Vision</a>
+</div>
+<div id="print-info" class="text-secondary">
+<p> Retrieved June 23, 2021 at 1:35 am (website time).</p>
+<p> Available at: 192.168.31.181/muthu/?p=1063</p>
+</div>
+<div class="entry-links post-links text-secondary"><nav class="post-navigation" role="navigation" aria-label="Post"><h3 class="screen-reader-text">Post navigation</h3>
+<div class="nav-links">
+<div class="nav-link-previous">
+<div> <strong>Previous</strong>
+</div>
+<div> <a href="https://muthu.co/reduce-the-number-of-colors-of-an-image-using-uniform-quantization/" rel="prev">‹ Reduce the number of colors of an image using Uniform Quantization</a>
+</div>
+</div>
+<div class="nav-link-next">
+<div> <strong>Next</strong>
+</div>
+<div> <a href="https://muthu.co/reduce-the-number-of-colors-of-an-image-using-k-means-clustering/" rel="next">Reduce the number of colors of an image using K-Means Clustering ›</a>
+</div>
+</div>
+</div></nav></div></footer></article></main></div>
+<footer class="site-footer text-secondary site-footer-align-left" role="contentinfo"><div id="site-footer-text" class="site-footer-block"><p>© 2021 Muthukrishnan</p></div> <noscript><style>.lazyload{display:none;}</style></noscript>
+<script data-noptimize="1">window.lazySizesConfig=window.lazySizesConfig||{};window.lazySizesConfig.loadMode=1;</script><script async="" data-noptimize="1" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/lazysizes.min.js"></script> </footer>
+</div> <script defer="" src="./Reducing the number of colors of an image using Median Cut algorithm – Muthukrishnan_files/autoptimize_3a7f2dc7c08408aa5f397b4c44a09b87.js"></script>
+
+</body></html>

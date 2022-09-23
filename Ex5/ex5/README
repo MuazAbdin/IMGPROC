@@ -1,0 +1,20 @@
+muaz.abdeen
+
+files in the ZIP:
+1- Ex5_results.pdf
+2- IMPR_Ex5_Deep_Style_Image_Prior_2021_2022.ipynb
+3- ./Deblurring/im1_k85_w0.001
+   ./Deblurring/im2_k75_w0.1
+   ./Deblurring/Yann LeCun
+4- ./Colorization/im1_s900_w1
+   ./Colorization/im2_s900_w1
+   ./Colorization/Alan Turing
+5- ./Inpainting/paint_im1_s1000_w0.2
+   ./Inpainting/paint_im2_s1000_w0.2
+   ./Inpainting/fei_fei_li
+
+Each one of the 3-5 sub-folders contains 4 files:
+1- inverted_latent.npz
+2- original_image.png
+3- original_degraded_image.png
+4- final_inverted_image.png
